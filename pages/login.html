@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clube da Luta - Login</title>
+    <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/login.css">
+</head>
+<body>
+
+    <header>
+        <h1>Clube da Luta</h1>
+    </header>
+
+    <main>
+        <h2>Bem-vindo ao Clube</h2>
+        <p>“A primeira regra do Clube da Luta é: Você não fala sobre o Clube da Luta.”</p>
+        
+        <!-- Formulário de login -->
+        <form id="loginForm">
+            <h3>Login</h3>
+            <label for="emailOrUsername">Usuário ou E-mail</label>
+            <input type="text" name="emailOrUsername" id="emailOrUsername" required>
+            
+            <label for="password">Senha</label>
+            <div class="senha-container">
+                <input type="password" id="password" name="password" required />
+                <span id="togglePassword" class="toggle-password">👁️</span>
+              </div>
+              
+            <button id="btn_submit" type="submit">Entrar</button>
+            <p>Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+        </form>
+        <p id="mensagem"></p>
+        
+    </main>
+    <script src="../script/login.js"></script>
+</body>
+</html>

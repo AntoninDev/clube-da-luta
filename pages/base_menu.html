@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clube Da Luta - base</title>
+  <link rel="stylesheet" href="../style/base_menu.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
+</head>
+<body>
+  <aside class="sidebar">
+    <!-- Sidebar header -->
+    <header class="sidebar-header">
+      <button class="toggler sidebar-toggler">
+        <span class="material-symbols-rounded">chevron_left</span>
+      </button>
+      <button class="toggler menu-toggler">
+        <span class="material-symbols-rounded">menu</span>
+      </button>
+    </header>
+    <nav class="sidebar-nav">
+      <!-- Primary top nav -->
+      <ul class="nav-list primary-nav">
+        <li class="nav-item">
+          <a href="search.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">search</span>
+            <span class="nav-label">Pesquisar</span>
+          </a>
+          <span class="nav-tooltip">Pesquisar</span>
+        </li>
+        <li class="nav-item">
+          <a href="feed.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">post</span>
+            <span class="nav-label">Feed</span>
+          </a>
+          <span class="nav-tooltip">Feed</span>
+        </li>
+        <li class="nav-item">
+          <a href="ranking.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">Crown</span>
+            <span class="nav-label">Ranking</span>
+          </a>
+          <span class="nav-tooltip">Ranking</span>
+        </li>
+        <li class="nav-item">
+          <a href="avisos.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">notifications</span>
+            <span class="nav-label">Avisos</span>
+          </a>
+          <span class="nav-tooltip">Avisos</span>
+        </li>
+        <li class="nav-item">
+          <a href="global_chat.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">chat</span>
+            <span class="nav-label">Chat global</span>
+          </a>
+          <span class="nav-tooltip">Chat global</span>
+        </li>
+        <li class="nav-item">
+          <a href="training.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">exercise</span>
+            <span class="nav-label">Treinos</span>
+          </a>
+          <span class="nav-tooltip">Treinos</span>
+        </li>
+        <li class="nav-item">
+          <a href="locais.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">map</span>
+            <span class="nav-label">Locais</span>
+          </a>
+          <span class="nav-tooltip">Locais</span>
+        </li>
+        <li class="nav-item">
+          <a href="rules.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">rule</span>
+            <span class="nav-label">Regras</span>
+          </a>
+          <span class="nav-tooltip">Regras</span>
+        </li>
+      </ul>
+      <!-- Secondary bottom nav -->
+      <ul class="nav-list secondary-nav">
+        <li class="nav-item">
+          <a href="profile.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">account_circle</span>
+            <span class="nav-label">Perfil</span>
+          </a>
+          <span class="nav-tooltip">Perfil</span>
+        </li>
+        <li class="nav-item">
+          <a href="logout.html" class="nav-link">
+            <span class="nav-icon material-symbols-rounded">logout</span>
+            <span class="nav-label">Sair</span>
+          </a>
+          <span class="nav-tooltip">Sair</span>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <script>
+    const sidebar = document.querySelector(".sidebar");
+sidebar.classList.add("collapsed");
+const sidebarToggler = document.querySelector(".sidebar-toggler");
+const menuToggler = document.querySelector(".menu-toggler");
+// Ensure these heights match the CSS sidebar height values
+let collapsedSidebarHeight = "56px"; // Height in mobile view (collapsed)
+let fullSidebarHeight = "calc(100vh - 32px)"; // Height in larger screen
+// Toggle sidebar's collapsed state
+sidebarToggler.addEventListener("click", () => {
+  sidebar.classList.toggle("collapsed");
+});
+// Update sidebar height and menu toggle text
+const toggleMenu = (isMenuActive) => {
+  sidebar.style.height = isMenuActive ? `${sidebar.scrollHeight}px` : collapsedSidebarHeight;
+  menuToggler.querySelector("span").innerText = isMenuActive ? "close" : "menu";
+}
+// Toggle menu-active class and adjust height
+menuToggler.addEventListener("click", () => {
+  toggleMenu(sidebar.classList.toggle("menu-active"));
+});
+// (Optional code): Adjust sidebar height on window resize
+window.addEventListener("resize", () => {
+  if (window.innerWidth >= 1024) {
+    sidebar.style.height = fullSidebarHeight;
+  } else {
+    sidebar.classList.remove("collapsed");
+    sidebar.style.height = "auto";
+    toggleMenu(sidebar.classList.contains("menu-active"));
+  }
+});
+  </script>
+</body>
+</html>
