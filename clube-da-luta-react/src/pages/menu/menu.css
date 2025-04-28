@@ -1,0 +1,158 @@
+/* Sidebar geral */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background-color: #111;
+  color: white;
+  border-right: 2px solid #e63946;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+  padding: 20px 10px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: #e63946;
+  white-space: nowrap;
+}
+
+.toggle-btn {
+  background: #e63946;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex: 1;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.nav-item:hover {
+  background-color: #222;
+  color: #e63946;
+}
+
+.nav-bottom {
+  margin-top: auto;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 10px;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 2px solid #e63946;
+  }
+
+  .toggle-btn {
+    padding: 4px 6px; /* Diminui o tamanho do padding */
+    font-size: 0.8rem; /* Ajusta o tamanho da fonte */
+    background-color: #e63946; /* Mantém a cor de fundo vermelha */
+    border-radius: 6px; /* Ajusta o arredondamento para o fundo */
+    width: auto; /* Garante que o botão tenha o tamanho ajustado conforme o conteúdo */
+  }
+
+  .toggle-btn:focus {
+    background-color: #e63946; /* Mantém a cor de fundo sem mudar no foco */
+    box-shadow: none; /* Remove qualquer sombra */
+  }
+  
+  .sidebar.collapsed {
+    width: 90%;
+  }
+
+  .sidebar-header {
+    display: none;
+  }
+
+  .nav-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .nav-item {
+    flex: 1 0 auto;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+
+  .nav-bottom {
+    display: none;
+  }
+}
+
+/* === MODO MOBILE === */
+.sidebar.mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5%;
+  padding: 10px;
+  flex-direction: column;
+  border-right: none;
+  border-bottom: 2px solid #e63946;
+  z-index: 1000;
+}
+
+.sidebar.mobile .sidebar-header {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.sidebar.mobile .nav-links {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  background-color: #111;
+  border-top: 1px solid #333;
+}
+
+.sidebar.mobile .nav-item {
+  font-size: 1rem;
+  padding: 12px 20px;
+}
+
+.sidebar.mobile.collapsed .nav-links {
+  display: none;
+}

@@ -24,11 +24,11 @@ router.get('/:id', async (req, res) => {
 // 📌 Atualizar dados do usuário
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { email, password } = req.body;
+    const { nome_completo, nome_usuario, idade, peso, altura, estilo_luta } = req.body;
 
     const { data, error } = await supabase
         .from('usuarios')
-        .update({ email, password })
+        .update({ nome_completo, nome_usuario, idade, peso, altura, estilo_luta })
         .eq('id', id);
 
     if (error) {
@@ -36,7 +36,9 @@ router.put('/:id', async (req, res) => {
     }
 
     res.json({ message: 'Usuário atualizado com sucesso!' });
+    console.log(`Usuário `)
 });
+
 
 // 📌 Excluir usuário
 router.delete('/:id', async (req, res) => {

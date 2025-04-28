@@ -1,0 +1,192 @@
+/* ===== RESET GLOBAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* ===== HEADER ===== */
+  header h1 {
+    color: #e63946;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 8px rgba(255, 0, 0, 0.7);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+  }
+  
+  /* ===== CONTAINER PRINCIPAL ===== */
+  .login-container {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(30, 30, 30, 0.95);
+    padding: 30px 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* ===== TÍTULOS ===== */
+  main h2 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  main p {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 0 10px;
+  }
+  
+  /* ===== FORMULÁRIO ===== */
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #fff;
+  }
+  
+  label {
+    align-self: flex-start;
+    margin: 8px 0 4px 0;
+    color: #e63946;
+    font-weight: bold;
+  }
+  
+  /* ===== CAMPOS E BOTÕES ===== */
+  input,
+  button {
+    width: 100%;
+    padding: 12px;
+    margin: 6px 0;
+    border-radius: 6px;
+    font-size: 1rem;
+    border: 2px solid #e63946;
+    background-color: #111;
+    color: #eee;
+    text-align: center;
+    transition: 0.3s;
+  }
+  
+  input::placeholder {
+    color: #e63946;
+    opacity: 0.7;
+  }
+  
+  input:focus {
+    border-color: #ff0066;
+    outline: none;
+  }
+  
+  button {
+    background-color: #e63946;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ff0033;
+    transform: scale(1.03);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+  }
+  
+  /* ===== ICONE DE SENHA ===== */
+  .senha-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .senha-container input {
+    padding-right: 40px;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #ccc;
+    cursor: pointer;
+  }
+  
+  .toggle-password:hover {
+    color: #fff;
+  }
+  
+  /* ===== LINKS ===== */
+  a {
+    color: #e63946;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ===== MENSAGEM DE ERRO ===== */
+  .mensagem-erro {
+    background: #330000;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 8px;
+    color: #ff4d4d;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+  }
+  
+  /* ===== RESPONSIVO ===== */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2rem;
+    }
+  
+    main h2 {
+      font-size: 1.5rem;
+    }
+  
+    .login-container {
+      width: 320px;
+      padding: 20px 15px;
+    }
+  
+    form h3 {
+      font-size: 1.3rem;
+    }
+  
+    input, button {
+      font-size: 0.95rem;
+      padding: 10px;
+    }
+  
+    .toggle-password {
+      font-size: 1rem;
+    }
+  }
+  

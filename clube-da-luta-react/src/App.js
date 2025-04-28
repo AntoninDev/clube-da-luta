@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./pages/login/login";
+import Cadastro from "./pages/cadastro/cadastro";
+import Feed from "./pages/feed/feed"
+import Perfil from "./pages/profile/profile";
+import EditarPerfil from "./pages/profile/editar";
+import Deslogar from "./pages/logout/logout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/profile" element={<Perfil />} />
+        <Route path="/editar-perfil" element={<EditarPerfil />} />
+        <Route path="/logout" element={<Deslogar />} />
+      </Routes>
+    </Router>
   );
 }
 

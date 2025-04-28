@@ -1,0 +1,44 @@
+.feed-page {
+  margin-top: 10%;
+    display: flex;
+    background: linear-gradient(#0a0a0a, #1a1a1a);
+    color: white;
+    min-height: 100vh;
+  }
+  
+  /* Conteúdo do feed */
+  .feed-conteudo {
+    flex: 1;
+    padding: 40px 60px;
+    margin-left: 270px; /* Largura da sidebar */
+    transition: margin-left 0.4s ease;
+  }
+  
+  .sidebar.collapsed + .feed-conteudo {
+    margin-left: 85px; /* Sidebar colapsada */
+  }
+  
+  .feed-conteudo h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #e63946;
+  }
+  
+  .feed-conteudo p {
+    font-size: 1.2rem;
+    color: #ccc;
+    max-width: 700px;
+  }
+  
+  /* Responsivo para mobile */
+  @media (max-width: 1024px) {
+    .feed-page {
+      flex-direction: column;
+    }
+  
+    .feed-conteudo {
+      margin-left: 0;
+      padding: 80px 20px 40px;
+    }
+  }
+  

@@ -29,7 +29,8 @@ app.use(cors());
 
 // Usando as rotas
 app.use('/', authRoutes); // Isso permite acessar /register e /login diretamente
+app.use('/users', userRoutes);
 
-app.listen(3000, '0.0.0.0', () => {
+app.listen(4000, '0.0.0.0', () => {
     console.log(`[${GetHora()}] - Servidor rodando!`);
 });
