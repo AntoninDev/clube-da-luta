@@ -21,8 +21,9 @@ function Login() {
 
   // Função de login
   const handleSubmit = async (e) => {
+
+    setMensagem("Carregando...");
     e.preventDefault();
-    setMensagem("");
 
     try {
       const response = await fetch("https://backend-clube-da-luta.onrender.com/login", {
