@@ -15,7 +15,7 @@ function Login() {
   useEffect(() => {
     const estaLogado = localStorage.getItem("usuario_logado") === "true";
     if (estaLogado) {
-      navigate("/feed");
+      navigate("/profile");
     }
   }, [navigate]);
 

@@ -1,6 +1,7 @@
 const API_URL = 'https://backend-clube-da-luta.onrender.com/users'; // URL principal para usuários
 const AUTH_URL = 'https://backend-clube-da-luta.onrender.com';       // URL principal para autenticação (registro/login)
 
+
 // 📌 Função para obter os dados de um usuário pelo ID
 export const getUserById = async (id) => {
   try {

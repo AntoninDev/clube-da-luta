@@ -10,16 +10,13 @@
 
 /* Foto centralizada */
 .foto-wrapper {
-  margin-left: 75px;
-  display: flex;
-  justify-content: center; /* Garantindo que a foto fique centralizada */
-  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 #fotoPerfil {
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   object-fit: cover;
   border: 4px solid #fff;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
@@ -120,8 +117,7 @@
   }
 
   .foto-wrapper {
-    margin-left: 70px;
-    margin-bottom: 20px;
+    margin: 0 auto;
   }
 
   #fotoPerfil {

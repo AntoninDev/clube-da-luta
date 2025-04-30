@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Deslogar = () => {
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isLoggingOut] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {

@@ -91,6 +91,7 @@ const EditarPerfil = () => {
     <div className="container">
       <h1>Editar Perfil</h1>
       <form id="edit-profile-form" onSubmit={handleSubmit}>
+
         <label htmlFor="nome">Nome</label>
         <input
           type="text"

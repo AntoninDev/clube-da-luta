@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Menu from "../menu/menu";
 import './profile.css'; // Estilos do perfil
-import fotoPerfil from './profile.jpg';
+import fotoPerfil from './default-avatar.webp';
 import { getUserById } from '../../services/api.js'; // Importando a função getUserById para buscar dados do usuário
 
 const Perfil = () => {
@@ -61,8 +60,6 @@ const Perfil = () => {
 
   return (
     <div className="container">
-      <Menu />
-
       <div className="info-usuario">
         <div className="foto-wrapper">
             <img id="fotoPerfil" src={fotoPerfil} alt="Foto de perfil" />
