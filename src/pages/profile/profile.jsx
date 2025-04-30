@@ -11,18 +11,16 @@ const Perfil = () => {
 
   useEffect(() => {
     const userInfo = localStorage.getItem('usuario_info');
-    console.log('Dados no localStorage:', userInfo); // Logando os dados do localStorage
 
     if (userInfo) {
       const userId = JSON.parse(userInfo)?.id; // Pegando o ID do usuário armazenado no localStorage
-      console.log('ID do usuário:', userId); // Logando o ID do usuário
 
       if (userId) {
         const fetchUser = async () => {
           try {
-            console.log('Buscando dados do usuário...');
+
             const userData = await getUserById(userId); // Buscando os dados do usuário na API
-            console.log('Dados do usuário recebidos:', userData); // Logando os dados recebidos
+
 
             if (userData) {
               setUsuario(userData); // Atualizando o estado com os dados obtidos
