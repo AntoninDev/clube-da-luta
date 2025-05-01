@@ -11,7 +11,7 @@ const Cadastro = () => {
     nome_usuario: "",
     email: "",
     data_nascimento: "",
-    password: "" // Alterado para 'password'
+    password: "" 
   });
 
   const [mensagemErro, setMensagemErro] = useState("");
@@ -30,20 +30,20 @@ const Cadastro = () => {
 
     try {
       await registerUser(formData);
-      setMensagemErro(""); // Limpa erro
+      setMensagemErro("");
       setMensagemSucesso("Conta criada com sucesso! Você será redirecionado...");
       
       setTimeout(() => {
-        navigate('/'); // Redireciona após 2 segundos
+        navigate('/'); 
       }, 2000);
     } catch (error) {
-      setMensagemSucesso(""); // Limpa sucesso
+      setMensagemSucesso(""); 
       setMensagemErro(error.message || "Erro ao registrar usuário.");
     }
   };
 
   const handleTogglePassword = (e) => {
-    e.preventDefault(); // Impede seleção
+    e.preventDefault(); 
     setMostrarSenha(prev => !prev);
   };
 
@@ -108,20 +108,16 @@ const Cadastro = () => {
           />
           <span
             className="toggle-password"
-            onMouseDown={(e) => e.preventDefault()} // Impede seleção do emoji
+            onMouseDown={(e) => e.preventDefault()}
             onClick={handleTogglePassword}
-            style={{ userSelect: 'none', cursor: 'pointer' }} // Estilo para não selecionar
+            style={{ userSelect: 'none', cursor: 'pointer' }} 
           >
             {mostrarSenha ? '🙈' : '👁️'}
           </span>
         </div>
 
         <button type="submit">Cadastrar</button>
-
-        {/* Mensagem de sucesso */}
         {mensagemSucesso && <div className="mensagem-sucesso">{mensagemSucesso}</div>}
-
-        {/* Mensagem de erro */}
         {mensagemErro && <div className="mensagem-erro">{mensagemErro}</div>}
 
         <div className="link">

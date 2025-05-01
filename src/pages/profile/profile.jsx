@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './profile.css'; // Estilos do perfil
+import './profile.css';
 import fotoPerfilPadrao from './default-avatar.webp';
-import { atualizarUsuarioLocal } from '../../services/api'; // Importando a função getUserById para buscar dados do usuário
+import { atualizarUsuarioLocal } from '../../services/api';
 
 const Perfil = () => {
   const [usuario, setUsuario] = useState(null);
-  const [loading, setLoading] = useState(true); // Adicionando estado de carregamento
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     atualizarUsuarioLocal(setUsuario, setLoading);
   }, []);
-   // Rodar o useEffect apenas uma vez quando o componente for montado
+  
 
   const handleEditarPerfil = () => {
-    navigate('/editar-perfil'); // Redirecionando para a página de editar perfil
+    navigate('/editar-perfil');
   };
 
-  // Se estiver carregando, exibe a mensagem de carregamento
+  
   if (loading) return <p>Carregando perfil...</p>;
 
-  // Se não encontrar o usuário, exibe mensagem de erro
   if (!usuario) return <p>Erro ao carregar perfil. Tente novamente mais tarde.</p>;
 
   return (

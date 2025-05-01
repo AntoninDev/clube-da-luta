@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateUser, atualizarUsuarioLocal } from "../../services/api"; // use a função certa
+import { updateUser, atualizarUsuarioLocal } from "../../services/api"; 
 import Select from 'react-select';
 import './editar.css';
 import fotoPerfilPadrao from './default-avatar.webp';
@@ -160,7 +160,7 @@ const EditarPerfil = () => {
     const file = e.target.files[0];
     if (file) {
       setAvatarFile(file);
-      setAvatarPreview(URL.createObjectURL(file)); // preview local
+      setAvatarPreview(URL.createObjectURL(file));
     }
   }}
 />
