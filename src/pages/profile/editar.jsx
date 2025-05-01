@@ -19,7 +19,7 @@ const EditarPerfil = () => {
     formData.append("userId", user.id);
 
     try {
-      const response = await fetch("http://localhost:4000/users/upload-avatar", {
+      const response = await fetch("https://backend-clube-da-luta.onrender.com/users/upload-avatar", {
         method: "POST",
         body: formData,
       });
