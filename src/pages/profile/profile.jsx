@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './profile.css'; // Estilos do perfil
 import fotoPerfil from './default-avatar.webp';
-import { getUserById } from '../../services/api.js'; // Importando a função getUserById para buscar dados do usuário
+import { atualizarUsuarioLocal } from '../../services/api'; // Importando a função getUserById para buscar dados do usuário
 
 const Perfil = () => {
   const [usuario, setUsuario] = useState(null);
@@ -10,41 +10,9 @@ const Perfil = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userInfo = localStorage.getItem('usuario_info');
-
-    if (userInfo) {
-      const userId = JSON.parse(userInfo)?.id; // Pegando o ID do usuário armazenado no localStorage
-
-      if (userId) {
-        const fetchUser = async () => {
-          try {
-
-            const userData = await getUserById(userId); // Buscando os dados do usuário na API
-
-
-            if (userData) {
-              setUsuario(userData); // Atualizando o estado com os dados obtidos
-              localStorage.setItem('usuario_info', JSON.stringify(userData)); // Atualizando o localStorage com os dados mais recentes
-            } else {
-              console.error('Usuário não encontrado na API');
-            }
-          } catch (error) {
-            console.error("Erro ao carregar dados do usuário:", error);
-          } finally {
-            setLoading(false); // Alterando o estado de carregamento
-          }
-        };
-
-        fetchUser(); // Chamando a função para buscar o usuário
-      } else {
-        console.error("ID do usuário não encontrado no localStorage.");
-        setLoading(false); // Se não tiver ID, não fica mais carregando
-      }
-    } else {
-      console.error("Dados do usuário não encontrados no localStorage.");
-      setLoading(false); // Se não tiver dados, não fica mais carregando
-    }
-  }, []); // Rodar o useEffect apenas uma vez quando o componente for montado
+    atualizarUsuarioLocal(setUsuario, setLoading);
+  }, []);
+   // Rodar o useEffect apenas uma vez quando o componente for montado
 
   const handleEditarPerfil = () => {
     navigate('/editar-perfil'); // Redirecionando para a página de editar perfil
