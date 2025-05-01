@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './profile.css'; // Estilos do perfil
-import fotoPadrao from './default-avatar.webp';
+import fotoPerfilPadrao from './default-avatar.webp';
 import { atualizarUsuarioLocal } from '../../services/api'; // Importando a função getUserById para buscar dados do usuário
 
 const Perfil = () => {
@@ -29,7 +29,7 @@ const Perfil = () => {
       <div className="info-usuario">
         <div className="foto-wrapper">
             <img id="fotoPerfil" src={JSON.parse(localStorage.getItem("usuario_info"))?.avatarUrl ||
-    fotoPadrao} alt="Foto de perfil" />
+    fotoPerfilPadrao} alt="Foto de perfil" />
         </div>
         <h2 className="titulo-usuario">{usuario.nome_completo}</h2>
         <p><strong>Nome de usuário:</strong> <span>{usuario.nome_usuario}</span></p>

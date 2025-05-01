@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { updateUser, atualizarUsuarioLocal } from "../../services/api"; // use a função certa
 import Select from 'react-select';
 import './editar.css';
+import fotoPerfilPadrao from './default-avatar.webp';
 
 const EditarPerfil = () => {
   const navigate = useNavigate();
@@ -143,7 +144,7 @@ const EditarPerfil = () => {
   src={
     avatarPreview ||
     JSON.parse(localStorage.getItem("usuario_info"))?.avatarUrl ||
-    "./default-avatar.webp"
+    fotoPerfilPadrao
   }
   alt="Prévia do avatar"
   id="fotoPerfil"
