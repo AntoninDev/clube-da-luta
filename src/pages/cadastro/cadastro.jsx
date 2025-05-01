@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/api"; 
 import './cadastro.css';
 
 const Cadastro = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const estaLogado = localStorage.getItem("usuario_logado") === "true";
+    if (estaLogado) {
+      navigate("/profile");
+    }
+  }, [navigate]);
 
   const [formData, setFormData] = useState({
     nome_completo: "",

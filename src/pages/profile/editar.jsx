@@ -8,6 +8,13 @@ import fotoPerfilPadrao from './default-avatar.webp';
 const EditarPerfil = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const estaLogado = localStorage.getItem("usuario_logado") === "true";
+    if (!estaLogado) {
+      navigate("/profile");
+    }
+  }, [navigate]);
+
   const [avatarFile, setAvatarFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(null);
 

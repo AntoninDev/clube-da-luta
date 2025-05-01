@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { verificarLogin } from "../../services/ultils";
 import "./login.css";
 
 function Login() {
@@ -11,12 +12,8 @@ function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mensagem, setMensagem] = useState("");
 
-  // Verifica se o usuário já está logado
   useEffect(() => {
-    const estaLogado = localStorage.getItem("usuario_logado") === "true";
-    if (estaLogado) {
-      navigate("/profile");
-    }
+    verificarLogin(navigate);
   }, [navigate]);
 
   // Função de login

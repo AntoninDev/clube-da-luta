@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './profile.css';
 import fotoPerfilPadrao from './default-avatar.webp';
 import { atualizarUsuarioLocal } from '../../services/api';
+import { verificarLogin } from "../../services/ultils";
+
 
 const Perfil = () => {
   const [usuario, setUsuario] = useState(null);
@@ -10,8 +12,10 @@ const Perfil = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    
+    verificarLogin(navigate);
     atualizarUsuarioLocal(setUsuario, setLoading);
-  }, []);
+  }, [navigate]);
   
 
   const handleEditarPerfil = () => {
