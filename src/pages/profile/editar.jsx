@@ -7,6 +7,36 @@ import './editar.css';
 const EditarPerfil = () => {
   const navigate = useNavigate();
 
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(null);
+
+  const uploadAvatar = async (file) => {
+    const user = JSON.parse(localStorage.getItem("usuario_info"));
+    if (!user || !file) return;
+
+    const formData = new FormData();
+    formData.append("avatar", file);
+    formData.append("userId", user.id);
+
+    try {
+      const response = await fetch("http://localhost:4000/users/upload-avatar", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.avatarUrl) {
+        const updatedUser = { ...user, avatarUrl: data.avatarUrl };
+        localStorage.setItem("usuario_info", JSON.stringify(updatedUser));
+      }
+    } catch (err) {
+      console.error("Erro ao enviar avatar:", err);
+      alert("Erro ao enviar imagem de perfil.");
+    }
+  };
+
+
   const estilosDisponiveis = [
     { value: "Luta de rua", label: "Luta de rua" },
     { value: "Boxe", label: "Boxe" },
@@ -78,6 +108,10 @@ const EditarPerfil = () => {
       estilo_luta: formData.estilo_luta.join(", ")
     };
 
+    if (avatarFile) {
+      await uploadAvatar(avatarFile);
+    }
+
     try {
       setLoadingSalvar(true);
       await updateUser(user.id, updatedData);
@@ -102,6 +136,35 @@ const EditarPerfil = () => {
     <div className="container">
       <h1>Editar Perfil</h1>
       <form id="edit-profile-form" onSubmit={handleSubmit}>
+      <label className="text-white font-semibold block mb-2">Foto de Perfil</label>
+
+
+<img
+  src={
+    avatarPreview ||
+    JSON.parse(localStorage.getItem("usuario_info"))?.avatarUrl ||
+    "./default-avatar.webp"
+  }
+  alt="Prévia do avatar"
+  id="fotoPerfil"
+/>
+
+
+        <label className="cursor-pointer inline-block bg-pink-700 hover:bg-pink-800 text-white px-4 py-2 rounded text-sm transition">
+          Escolher nova foto
+          <input
+  type="file"
+  accept="image/*"
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAvatarFile(file);
+      setAvatarPreview(URL.createObjectURL(file)); // preview local
+    }
+  }}
+/>
+        </label>
+
         <label htmlFor="nome">Nome</label>
         <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
 

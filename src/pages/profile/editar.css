@@ -14,7 +14,18 @@
     font-family: 'Courier New', Courier, monospace;
   }
   
-
+  .foto-wrapper {
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+  
+  #fotoPerfil {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
   
   /* Título da Página */
   .container h1 {
@@ -102,7 +113,10 @@
   /* Responsividade */
   @media (max-width: 768px) {
 
-
+    #fotoPerfil {
+      width: 160px;
+      height: 160px;
+    }
     .container {
       margin-left: 0;
       padding-top: 100px;
