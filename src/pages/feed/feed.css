@@ -1,44 +1,94 @@
-.feed-page {
-  margin-top: 10%;
-    display: flex;
-    background: linear-gradient(#0a0a0a, #1a1a1a);
-    color: white;
-    min-height: 100vh;
-  }
-  
-  /* Conteúdo do feed */
-  .feed-conteudo {
-    flex: 1;
-    padding: 40px 60px;
-    margin-left: 270px; /* Largura da sidebar */
-    transition: margin-left 0.4s ease;
-  }
-  
-  .sidebar.collapsed + .feed-conteudo {
-    margin-left: 85px; /* Sidebar colapsada */
-  }
-  
-  .feed-conteudo h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #e63946;
-  }
-  
-  .feed-conteudo p {
-    font-size: 1.2rem;
-    color: #ccc;
-    max-width: 700px;
-  }
-  
-  /* Responsivo para mobile */
-  @media (max-width: 1024px) {
-    .feed-page {
-      flex-direction: column;
-    }
-  
-    .feed-conteudo {
-      margin-left: 0;
-      padding: 80px 20px 40px;
-    }
-  }
-  
+.feed-container {
+  padding: 2rem;
+  background-color: #111;
+  color: #eee;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.titulo-feed {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #f92672;
+}
+
+.feed-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.post-card {
+  background-color: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 10px rgba(255, 0, 100, 0.1);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.legenda {
+  white-space: pre-wrap;
+  line-height: 1.4;
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.post-actions {
+  display: flex;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+
+.btn-curtir,
+.btn-comentar {
+  background: none;
+  border: none;
+  color: #f92672;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-curtir:hover,
+.btn-comentar:hover {
+  color: #ff69b4;
+}
+
+.comentarios p {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  color: #ccc;
+}

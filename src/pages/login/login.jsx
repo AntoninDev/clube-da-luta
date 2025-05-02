@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { verificarLogin } from "../../services/ultils";
+import { criarLog } from "../../services/api";
 import "./login.css";
 
 function Login() {
@@ -23,7 +24,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://backend-clube-da-luta.onrender.com/login", {
+      const response = await fetch('http://localhost:4000/login', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emailOrUsername, password }),
@@ -32,11 +33,14 @@ function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("usuario_info", JSON.stringify(data.user));
+        localStorage.setItem("usuario_id", data.user.id);
         localStorage.setItem("usuario_logado", "true");
-
+        if (data.user && data.user.id) {
+          let message = `Usuário (${emailOrUsername}) logado com sucesso.`
+          await criarLog(data.user.id, message);
+        }
         setMensagem("✅ Login bem-sucedido! Redirecionando...");
-        setTimeout(() => navigate("/feed"), 1500);
+        setTimeout(() => navigate("/home-page"), 1500);
       } else {
         setMensagem("❌ " + (data.error || "Erro ao fazer login."));
       }

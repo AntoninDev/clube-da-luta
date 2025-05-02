@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './profile.css';
 import fotoPerfilPadrao from './default-avatar.webp';
-import { atualizarUsuarioLocal } from '../../services/api';
 import { verificarLogin } from "../../services/ultils";
+import { getUserById } from '../../services/api';
 
 
 const Perfil = () => {
@@ -12,9 +12,25 @@ const Perfil = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
-    verificarLogin(navigate);
-    atualizarUsuarioLocal(setUsuario, setLoading);
+    const carregarUsuario = async () => {
+      verificarLogin(navigate); // Essa função deve redirecionar se não estiver logado
+      const userId = localStorage.getItem('usuario_id'); // Confirme se está salvo assim
+
+      if (!userId) {
+        navigate('/login');
+        return;
+      }
+      try {
+        const user = await getUserById(userId);
+        setUsuario(user);
+      } catch (err) {
+        console.error('Erro ao buscar usuário:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    carregarUsuario();
   }, [navigate]);
   
 
@@ -31,7 +47,7 @@ const Perfil = () => {
     <div className="container">
       <div className="info-usuario">
         <div className="foto-wrapper">
-            <img id="fotoPerfil" src={JSON.parse(localStorage.getItem("usuario_info"))?.avatarUrl ||
+            <img id="fotoPerfil" src={usuario.avatarUrl ||
     fotoPerfilPadrao} alt="Foto de perfil" />
         </div>
         <h2 className="titulo-usuario">{usuario.nome_completo}</h2>

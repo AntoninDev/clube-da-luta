@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateUser, atualizarUsuarioLocal } from "../../services/api"; 
+import { updateUser, getUserById, uploadAvatar } from "../../services/api";
 import Select from 'react-select';
 import './editar.css';
 import fotoPerfilPadrao from './default-avatar.webp';
@@ -8,42 +8,20 @@ import fotoPerfilPadrao from './default-avatar.webp';
 const EditarPerfil = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const estaLogado = localStorage.getItem("usuario_logado") === "true";
-    if (!estaLogado) {
-      navigate("/profile");
-    }
-  }, [navigate]);
+  const [formData, setFormData] = useState({
+    nome: "",
+    nome_usuario: "",
+    idade: "",
+    peso: "",
+    altura: "",
+    estilo_luta: [],
+    avatarUrl: ""
+  });
 
   const [avatarFile, setAvatarFile] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(null);
-
-  const uploadAvatar = async (file) => {
-    const user = JSON.parse(localStorage.getItem("usuario_info"));
-    if (!user || !file) return;
-
-    const formData = new FormData();
-    formData.append("avatar", file);
-    formData.append("userId", user.id);
-
-    try {
-      const response = await fetch("https://backend-clube-da-luta.onrender.com/users/upload-avatar", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (data.avatarUrl) {
-        const updatedUser = { ...user, avatarUrl: data.avatarUrl };
-        localStorage.setItem("usuario_info", JSON.stringify(updatedUser));
-      }
-    } catch (err) {
-      console.error("Erro ao enviar avatar:", err);
-      alert("Erro ao enviar imagem de perfil.");
-    }
-  };
-
+  const [loadingInicial, setLoadingInicial] = useState(true);
+  const [loadingSalvar, setLoadingSalvar] = useState(false);
 
   const estilosDisponiveis = [
     { value: "Luta de rua", label: "Luta de rua" },
@@ -59,41 +37,42 @@ const EditarPerfil = () => {
     { value: "MMA", label: "MMA" }
   ];
 
-  const [formData, setFormData] = useState({
-    nome: "",
-    nome_usuario: "",
-    idade: "",
-    peso: "",
-    altura: "",
-    estilo_luta: []
-  });
-
-  const [loadingInicial, setLoadingInicial] = useState(true);
-  const [loadingSalvar, setLoadingSalvar] = useState(false);
-
   useEffect(() => {
-    const carregarDados = async () => {
-      await atualizarUsuarioLocal(null, setLoadingInicial);
-      const user = JSON.parse(localStorage.getItem("usuario_info"));
+    const carregarUsuario = async () => {
+      const estaLogado = localStorage.getItem("usuario_logado") === "true";
+      if (!estaLogado) return navigate("/profile");
 
-      if (user) {
+      const id = localStorage.getItem("usuario_id");
+      if (!id) return navigate("/profile");
+
+      try {
+        const usuario = await getUserById(id);
+
         setFormData({
-          nome: user.nome_completo || "",
-          nome_usuario: user.nome_usuario || "",
-          idade: user.idade || "",
-          peso: user.peso || "",
-          altura: user.altura || "",
-          estilo_luta: Array.isArray(user.estilo_luta)
-            ? user.estilo_luta
-            : user.estilo_luta
-            ? user.estilo_luta.split(", ")
-            : []
+          nome: usuario.nome_completo || "",
+          nome_usuario: usuario.nome_usuario || "",
+          idade: usuario.idade || "",
+          peso: usuario.peso || "",
+          altura: usuario.altura || "",
+          estilo_luta: Array.isArray(usuario.estilo_luta)
+            ? usuario.estilo_luta
+            : usuario.estilo_luta
+              ? usuario.estilo_luta.split(", ").map(s => s.trim())
+              : [],
+          avatarUrl: usuario.avatarUrl || ""
         });
+
+        setAvatarPreview(usuario.avatarUrl || null);
+      } catch (err) {
+        console.error("Erro ao carregar usuário:", err);
+        navigate("/profile");
+      } finally {
+        setLoadingInicial(false);
       }
     };
 
-    carregarDados();
-  }, []);
+    carregarUsuario();
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -104,8 +83,10 @@ const EditarPerfil = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = JSON.parse(localStorage.getItem("usuario_info"));
-    if (!user) return;
+    const id = localStorage.getItem("usuario_id");
+    if (!id) return;
+
+    setLoadingSalvar(true);
 
     const updatedData = {
       nome_completo: formData.nome,
@@ -116,15 +97,9 @@ const EditarPerfil = () => {
       estilo_luta: formData.estilo_luta.join(", ")
     };
 
-    if (avatarFile) {
-      await uploadAvatar(avatarFile);
-    }
-
     try {
-      setLoadingSalvar(true);
-      await updateUser(user.id, updatedData);
-      const updatedUser = { ...user, ...updatedData };
-      localStorage.setItem("usuario_info", JSON.stringify(updatedUser));
+      if (avatarFile) await uploadAvatar(avatarFile);
+      await updateUser(id, updatedData);
       navigate("/profile");
     } catch (error) {
       console.error("Erro ao atualizar perfil:", error);
@@ -144,33 +119,26 @@ const EditarPerfil = () => {
     <div className="container">
       <h1>Editar Perfil</h1>
       <form id="edit-profile-form" onSubmit={handleSubmit}>
-      <label className="text-white font-semibold block mb-2">Foto de Perfil</label>
-
-
-<img
-  src={
-    avatarPreview ||
-    JSON.parse(localStorage.getItem("usuario_info"))?.avatarUrl ||
-    fotoPerfilPadrao
-  }
-  alt="Prévia do avatar"
-  id="fotoPerfil"
-/>
-
+        <label className="text-white font-semibold block mb-2">Foto de Perfil</label>
+        <img
+          src={avatarPreview || fotoPerfilPadrao}
+          alt="Prévia do avatar"
+          id="fotoPerfil"
+        />
 
         <label className="cursor-pointer inline-block bg-pink-700 hover:bg-pink-800 text-white px-4 py-2 rounded text-sm transition">
           Escolher nova foto
           <input
-  type="file"
-  accept="image/*"
-  onChange={(e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setAvatarFile(file);
-      setAvatarPreview(URL.createObjectURL(file));
-    }
-  }}
-/>
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                setAvatarFile(file);
+                setAvatarPreview(URL.createObjectURL(file));
+              }
+            }}
+          />
         </label>
 
         <label htmlFor="nome">Nome</label>
@@ -194,47 +162,21 @@ const EditarPerfil = () => {
           name="estilo_luta"
           options={estilosDisponiveis}
           value={estilosDisponiveis.filter(opt => formData.estilo_luta.includes(opt.value))}
-          onChange={(selectedOptions) =>
+          onChange={(selected) =>
             setFormData(prev => ({
               ...prev,
-              estilo_luta: selectedOptions.map(option => option.value)
+              estilo_luta: selected.map(option => option.value)
             }))
           }
           isSearchable={false}
           styles={{
-            control: (provided) => ({
-                ...provided,
-                backgroundColor: '#111',
-                borderColor: '#555',
-                color: '#eee',
-            }),
-            menu: (provided) => ({
-                ...provided,
-                backgroundColor: '#222',
-            }),
-            option: (provided, state) => ({
-                ...provided,
-                backgroundColor: state.isSelected ? '#555' : '#222',
-                color: '#eee',
-                '&:hover': { backgroundColor: '#444' }
-            }),
-            multiValue: (provided) => ({
-                ...provided,
-                backgroundColor: '#333',
-            }),
-            multiValueLabel: (provided) => ({
-                ...provided,
-                color: '#eee',
-            }),
-            multiValueRemove: (provided) => ({
-                ...provided,
-                color: '#eee',
-                ':hover': {
-                    backgroundColor: '#555',
-                    color: 'white',
-                },
-            }),
-        }}
+            control: (base) => ({ ...base, backgroundColor: '#111', borderColor: '#555', color: '#eee' }),
+            menu: (base) => ({ ...base, backgroundColor: '#222' }),
+            option: (base, state) => ({ ...base, backgroundColor: state.isSelected ? '#555' : '#222', color: '#eee', '&:hover': { backgroundColor: '#444' } }),
+            multiValue: (base) => ({ ...base, backgroundColor: '#333' }),
+            multiValueLabel: (base) => ({ ...base, color: '#eee' }),
+            multiValueRemove: (base) => ({ ...base, color: '#eee', ':hover': { backgroundColor: '#555', color: 'white' } })
+          }}
         />
 
         {loadingSalvar ? (

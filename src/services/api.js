@@ -1,8 +1,27 @@
-const API_URL = 'https://backend-clube-da-luta.onrender.com'; // URL principal para usuários
+//const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = "http://localhost:4000";
 const USERS_URL = `${API_URL}/users`
 const REGISTER_URL = `${API_URL}/register`
+const LOGS_URL = `${API_URL}/logs`;
 
-// 📌 Função para obter os dados de um usuário pelo ID
+export const criarLog = async (userId, message) => {
+  try {
+    const response = await fetch(`${LOGS_URL}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ user_id: userId, message })
+    });
+
+    if (!response.ok) throw new Error("Erro ao criar log");
+    return await response.json();
+  } catch (error) {
+    console.error("Erro ao criar log:", error);
+  }
+};
+
+
 export const getUserById = async (id) => {
   try {
     const response = await fetch(`${USERS_URL}/${id}`);
@@ -15,41 +34,6 @@ export const getUserById = async (id) => {
     throw error;
   }
 };
-
-export const atualizarUsuarioLocal = async (setUsuario, setLoading) => {
-  const userInfo = localStorage.getItem('usuario_info');
-
-  if (!userInfo) {
-    console.error("Dados do usuário não encontrados no localStorage.");
-    if (setLoading) setLoading(false);
-    return;
-  }
-
-  const userId = JSON.parse(userInfo)?.id;
-
-  if (!userId) {
-    console.error("ID do usuário não encontrado no localStorage.");
-    if (setLoading) setLoading(false);
-    return;
-  }
-
-  try {
-    const userData = await getUserById(userId);
-
-    if (userData) {
-      if (setUsuario) setUsuario(userData); // só atualiza se foi passado
-      localStorage.setItem('usuario_info', JSON.stringify(userData));
-    } else {
-      console.error('Usuário não encontrado na API');
-    }
-  } catch (error) {
-    console.error("Erro ao carregar dados do usuário:", error);
-  } finally {
-    if (setLoading) setLoading(false);
-  }
-};
-
-
 
 // 📌 Função para atualizar os dados do usuário
 export const updateUser = async (id, updatedData) => {
@@ -108,5 +92,35 @@ export const registerUser = async (userData) => {
   } catch (error) {
     console.error('Erro no registerUser:', error);
     throw error;
+  }
+};
+
+// 📌 Função para upload de avatar
+export const uploadAvatar = async (file) => {
+  const user = await getUserById(localStorage.getItem("usuario_id"));
+
+  if (!user || !file) return;
+
+  const formData = new FormData();
+  formData.append("avatar", file);
+  formData.append("userId", user.id);
+
+  try {
+    const response = await fetch(`${USERS_URL}/upload-avatar`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.avatarUrl) {
+      const updatedUser = { ...user, avatarUrl: data.avatarUrl };
+      updateUser(user.id, updatedUser)
+    }
+
+    return data;
+  } catch (err) {
+    console.error("Erro ao enviar avatar:", err);
+    throw err;
   }
 };
