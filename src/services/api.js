@@ -1,5 +1,5 @@
-//const API_URL = process.env.REACT_APP_API_URL;
-const API_URL = "http://localhost:4000";
+const API_URL = process.env.REACT_APP_API_URL;
+//const API_URL = "http://localhost:4000";
 const USERS_URL = `${API_URL}/users`
 const REGISTER_URL = `${API_URL}/register`
 const LOGS_URL = `${API_URL}/logs`;
