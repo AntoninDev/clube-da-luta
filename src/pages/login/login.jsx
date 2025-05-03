@@ -7,7 +7,7 @@ import "./login.css";
 
 function Login() {
   const navigate = useNavigate();
-
+  const [congelarBotao, setCongelarBotao] = useState(false);
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -19,19 +19,20 @@ function Login() {
 
   // Função de login
   const handleSubmit = async (e) => {
-
+    setCongelarBotao(true);
+    console.log('.')
     setMensagem("Carregando...");
     e.preventDefault();
-
+    
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ emailOrUsername, password }),
       });
-
+      
       const data = await response.json();
-
+      
       if (response.ok) {
         localStorage.setItem("usuario_id", data.user.id);
         localStorage.setItem("usuario_logado", "true");
@@ -42,6 +43,7 @@ function Login() {
         setMensagem("✅ Login bem-sucedido! Redirecionando...");
         setTimeout(() => navigate("/home-page"), 1500);
       } else {
+        setCongelarBotao(false);
         setMensagem("❌ " + (data.error || "Erro ao fazer login."));
       }
     } catch (error) {
@@ -87,8 +89,7 @@ function Login() {
               {mostrarSenha ? "🙈" : "👁️"}
             </span>
           </div>
-
-          <button id="btn_submit" type="submit">Entrar</button>
+          <button id="btn_submit" type="submit" disabled={congelarBotao}>Entrar</button>
           <p>Não tem conta? <Link to="/cadastro">Cadastre-se</Link></p>
         </form>
 
