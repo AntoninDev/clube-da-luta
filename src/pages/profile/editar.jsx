@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateUser, getUserById, uploadAvatar } from "../../services/api";
+import { verificarLogin } from "../../services/ultils";
 import Select from 'react-select';
 import './editar.css';
 import fotoPerfilPadrao from './default-avatar.webp';
@@ -41,7 +42,7 @@ const EditarPerfil = () => {
     const carregarUsuario = async () => {
       verificarLogin(navigate);
       try {
-        const usuario = await getUserById(id);
+        const usuario = await getUserById(localStorage.getItem("usuario_id"));
 
         setFormData({
           nome: usuario.nome_completo || "",
