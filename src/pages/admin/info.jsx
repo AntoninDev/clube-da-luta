@@ -8,7 +8,7 @@ function UsuariosOnline() {
   useEffect(() => {
     const fetchOnlineUsers = async () => {
       try {
-        const response = await fetch('http://localhost:4000/users/online');
+        const response = await fetch('${process.env.REACT_APP_API_URL}/users/online');
         const json = await response.json();
         setUsuarios(json.online_users);
         setQuantidade(json.total);
