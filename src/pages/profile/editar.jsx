@@ -39,12 +39,7 @@ const EditarPerfil = () => {
 
   useEffect(() => {
     const carregarUsuario = async () => {
-      const estaLogado = localStorage.getItem("usuario_logado") === "true";
-      if (!estaLogado) return navigate("/profile");
-
-      const id = localStorage.getItem("usuario_id");
-      if (!id) return navigate("/profile");
-
+      verificarLogin(navigate);
       try {
         const usuario = await getUserById(id);
 

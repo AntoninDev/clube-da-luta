@@ -7,8 +7,31 @@ import EditarPerfil from "./pages/profile/editar";
 import Deslogar from "./pages/logout/logout";
 import AdminHome from "./pages/admin/admin";
 import AdminLogs from "./pages/admin/verLogs";
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    const userId = localStorage.getItem('usuario_id');
+    if (!userId) return;
+  
+    // Marcar como online ao abrir o site
+    fetch(`${process.env.REACT_APP_API_URL}/status`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, online: true }),
+    });
+  
+    // Marcar como offline ao sair
+    const handleUnload = () => {
+      navigator.sendBeacon(`${process.env.REACT_APP_API_URL}/status`, JSON.stringify({
+        user_id: userId,
+        online: false,
+      }));
+    };
+  
+    window.addEventListener('beforeunload', handleUnload);
+    return () => window.removeEventListener('beforeunload', handleUnload);
+  }, []);
   return (
     <Router>
       <Routes>
