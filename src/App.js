@@ -16,7 +16,7 @@ function App() {
     if (!userId) return;
   
     // Marcar como online ao abrir o site
-    fetch(`http://localhost:4000/users/status`, {
+    fetch(`${process.env.REACT_APP_API_URL}/users/status`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_id: userId, online: true }),
@@ -24,7 +24,7 @@ function App() {
   
     // Marcar como offline ao sair
     const handleUnload = () => {
-      navigator.sendBeacon(`http://localhost:4000/users/status`, JSON.stringify({
+      navigator.sendBeacon(`${process.env.REACT_APP_API_URL}/users/status`, JSON.stringify({
         user_id: userId,
         online: false,
       }));
