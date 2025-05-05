@@ -8,7 +8,7 @@ const AdminLogs = () => {
 
   const fetchAllLogs = async () => {
     try {
-      const response = await fetch('http://localhost:4000/logs');
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/logs`);
       const data = await response.json();
       setLogs(data);
     } catch (error) {
@@ -18,7 +18,7 @@ const AdminLogs = () => {
 
   const fetchLogsByUser = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/logs/buscar?q=${search}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/logs/buscar?q=${search}`);
       const data = await response.json();
       setSearchResults(data);
     } catch (error) {
