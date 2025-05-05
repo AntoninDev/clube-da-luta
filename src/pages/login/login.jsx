@@ -20,7 +20,6 @@ function Login() {
   // Função de login
   const handleSubmit = async (e) => {
     setCongelarBotao(true);
-    console.log('.')
     setMensagem("Carregando...");
     e.preventDefault();
     
