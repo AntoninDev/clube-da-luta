@@ -43,12 +43,6 @@ const Feed = () => {
 
   useEffect(() => {
     fetchPosts(); 
-
-    const interval = setInterval(() => {
-      fetchPosts(); 
-    }, 5000);
-
-    return () => clearInterval(interval);
   }, [fetchPosts]);
 
   const handleLikeToggle = async (postId) => {
