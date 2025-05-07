@@ -17,12 +17,11 @@ const Publication = () => {
         },
         body: JSON.stringify({
           caption,
-          user_id: localStorage.getItem('usuario_id'), // Supondo que o ID do usuário esteja no localStorage
+          user_id: localStorage.getItem('usuario_id'),
         }),
       });
 
       if (res.ok) {
-        // Redireciona para a página de feed após a postagem ser criada
         navigate('/');
       } else {
         alert('Erro ao publicar!');
