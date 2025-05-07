@@ -77,10 +77,28 @@
 .btn-comentar {
   background: none;
   border: none;
-  color: #f92672;
   cursor: pointer;
   font-size: 1rem;
+  color: #eee;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  transition: transform 0.1s ease-in-out;
 }
+
+/* Remove fundo e sombras ao clicar */
+.btn-curtir:focus,
+.btn-curtir:active,
+.btn-curtir:hover,
+.btn-comentar:focus,
+.btn-comentar:active,
+.btn-comentar:hover {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: #f92672; /* opcional: adiciona destaque ao passar o mouse */
+  transform: scale(1.05); /* opcional: pequeno efeito de destaque */
+}
+
 
 .comentarios p {
   font-size: 0.85rem;
@@ -95,3 +113,4 @@
   margin-top: 20px;
   font-style: italic;
 }
+

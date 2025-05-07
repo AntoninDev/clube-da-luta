@@ -38,31 +38,52 @@ const Feed = () => {
 
   const handleLikeToggle = async (postId) => {
     const liked = userLikes.includes(postId);
+  
+    // Atualiza o estado local de userLikes
     setUserLikes((prevLikes) =>
       liked ? prevLikes.filter((id) => id !== postId) : [...prevLikes, postId]
     );
-    const url = `${process.env.REACT_APP_API_URL}/likes`;
+  
+    // Atualiza o número de likes no estado `posts`
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              likes: liked ? post.likes - 1 : post.likes + 1,
+            }
+          : post
+      )
+    );
+  
+    // Faz a requisição ao backend
     try {
-      if (liked) {
-        await fetch(url, {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ post_id: postId, user_id: userId }),
-        });
-      } else {
-        await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ post_id: postId, user_id: userId }),
-        });
-      }
+      const url = `${process.env.REACT_APP_API_URL}/likes`;
+      await fetch(url, {
+        method: liked ? 'DELETE' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ post_id: postId, user_id: userId }),
+      });
     } catch (err) {
       console.error('Erro ao curtir/descurtir:', err);
+  
+      // Reverte alterações se der erro
       setUserLikes((prevLikes) =>
         liked ? [...prevLikes, postId] : prevLikes.filter((id) => id !== postId)
       );
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post.id === postId
+            ? {
+                ...post,
+                likes: liked ? post.likes + 1 : post.likes - 1,
+              }
+            : post
+        )
+      );
     }
   };
+  
 
   const fetchComentarios = async (postId) => {
     try {
