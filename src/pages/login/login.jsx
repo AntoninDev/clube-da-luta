@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { verificarLogin } from "../../services/ultils";
 import { criarLog } from "../../services/api";
 import "./login.css";
 
@@ -14,7 +13,15 @@ function Login() {
   const [mensagem, setMensagem] = useState("");
 
   useEffect(() => {
-    verificarLogin(navigate);
+    const estaLogado = localStorage.getItem("usuario_logado") === "true";
+    const userId = localStorage.getItem("usuario_id");
+    if (estaLogado) {
+        navigate("/home-page");
+    }
+    if (!userId) {
+      localStorage.clear();
+      navigate("/login");
+    }
   }, [navigate]);
 
   // Função de login

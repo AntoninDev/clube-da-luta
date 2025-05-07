@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/login/login";
 import Cadastro from "./pages/cadastro/cadastro";
 import Feed from "./pages/feed/feed"
+import Publication from "./pages/feed/publication";
 import Perfil from "./pages/profile/profile";
 import EditarPerfil from "./pages/profile/editar";
 import Deslogar from "./pages/logout/logout";
@@ -37,10 +38,11 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home-page" element={<Perfil />} />
+        <Route path="/home-page" element={<Feed />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/publication" element={<Publication />} />
         <Route path="/profile" element={<Perfil />} />
         <Route path="/editar-perfil" element={<EditarPerfil />} />
         <Route path="/logout" element={<Deslogar />} />
