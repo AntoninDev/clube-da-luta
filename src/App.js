@@ -6,6 +6,8 @@ import Publication from "./pages/feed/publication";
 import Perfil from "./pages/profile/profile";
 import EditarPerfil from "./pages/profile/editar";
 import Deslogar from "./pages/logout/logout";
+import AdminHome from "./pages/admin/admin";
+import AdminLogs from "./pages/admin/verLogs";
 import UsuariosOnline from "./pages/admin/info";
 import { useEffect } from 'react';
 
@@ -44,6 +46,9 @@ function App() {
         <Route path="/profile" element={<Perfil />} />
         <Route path="/editar-perfil" element={<EditarPerfil />} />
         <Route path="/logout" element={<Deslogar />} />
+        <Route path="/admin" element={<AdminHome />} />
+        <Route path="/admin/logs" element={<AdminLogs />} />
+        <Route path="/admin/online" element={<UsuariosOnline />} />
       </Routes>
     </Router>
   );
