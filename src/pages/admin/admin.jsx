@@ -16,6 +16,12 @@ const AdminHome = () => {
         >
           Verificar Logs
         </button>
+        <button
+          onClick={() => navigate('/admin/users')}
+          className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-4 rounded-xl transition"
+        >
+          Ver informações de usuarios
+        </button>
       </div>
     </div>
   );

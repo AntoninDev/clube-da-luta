@@ -1,116 +1,166 @@
+
 .feed-container {
-  padding: 2rem;
-  background-color: #111;
-  color: #eee;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
+padding: 2rem;
+background-color: #111;
+color: #eee;
+height: 100vh;
+width: 50vw;
+overflow: hidden;
+display: flex;
+flex-direction: column;
 
-
-
-.titulo-feed {
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 2rem;
-  color: #f92672;
 }
 
 .feed-scroll-area {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 1rem;
+flex: 1;
+overflow-y: auto;
+padding-right: 1rem;
 }
 
 .post-card {
-  background-color: #1c1c1c;
-  border: 1px solid #333;
-  border-radius: 12px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 0 10px rgba(255, 0, 100, 0.1);
+font-size: 20px;
+background-color: #1c1c1c;
+border: 1px solid #333;
+border-radius: 12px;
+padding: 1rem;
+margin-bottom: 1.5rem;
+box-shadow: 0 0 10px rgba(255, 0, 100, 0.1);
 }
 
 .post-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
+font-size: 30px;
+display: flex;
+align-items: center;
+gap: 0.75rem;
+margin-bottom: 0.5rem;
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
+width: 70px;
+height: 70px;
+border-radius: 50%;
+object-fit: cover;
 }
 
 .username {
-  font-size: 0.85rem;
-  color: #aaa;
-  margin-top: 2px;
+color: #aaa;
+margin-top: 2px;
 }
 
 .post-image {
-  width: 100%;
-  height: auto;
-  margin: 0.5rem 0;
-  border-radius: 8px;
-  object-fit: cover;
+width: 100%;
+height: auto;
+margin: 0.5rem 0;
+border-radius: 8px;
+object-fit: cover;
 }
 
 .legenda {
-  white-space: pre-wrap;
-  line-height: 1.4;
-  margin: 0.5rem 0;
-  font-size: 0.95rem;
+white-space: pre-wrap;
+line-height: 1.4;
+margin: 0.5rem 0;
+font-size: 25px;
+}
+
+.post-date {
+font-size: 25px;
 }
 
 .post-actions {
-  display: flex;
-  gap: 1rem;
-  margin: 0.5rem 0;
+display: flex;
+gap: 1rem;
+margin: 0.5rem 0;
 }
 
 .btn-curtir,
 .btn-comentar {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  color: #eee;
-  padding: 0.3rem 0.6rem;
-  border-radius: 6px;
-  transition: transform 0.1s ease-in-out;
+
+font-size: 25px;
+color: #eee;
+padding: 0.3rem 0.6rem;
+border-radius: 6px;
+
 }
 
-/* Remove fundo e sombras ao clicar */
-.btn-curtir:focus,
-.btn-curtir:active,
-.btn-curtir:hover,
-.btn-comentar:focus,
-.btn-comentar:active,
-.btn-comentar:hover {
-  background-color: transparent !important;
-  box-shadow: none !important;
-  outline: none !important;
-  color: #f92672; /* opcional: adiciona destaque ao passar o mouse */
-  transform: scale(1.05); /* opcional: pequeno efeito de destaque */
-}
+
 
 
 .comentarios p {
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-  color: #ccc;
+font-size: 25px;
+margin-top: 0.25rem;
+color: #ccc;
 }
 
 .loading-message {
-  text-align: center;
-  color: #fff;
-  font-size: 1.2rem;
-  margin-top: 20px;
-  font-style: italic;
+text-align: center;
+color: #fff;
+font-size: 1.2rem;
+margin-top: 20px;
+font-style: italic;
 }
 
+@media (max-width: 768px) {
+  .feed-container {
+    padding: 2rem;
+    height: 100vh;
+    width: 50vw;
+
+  }
+  
+  .post-card {
+    font-size: 20px;
+  }
+  
+  .post-header {
+    display: flex;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .username {
+    margin-top: 2px;
+  }
+  
+  .post-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .legenda {
+    margin: 0.5rem 0;
+    font-size: 15px;
+  }
+  
+  .post-date {
+    font-size: 15px;
+  }
+  
+  .post-actions {
+    gap: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .btn-curtir,
+  .btn-comentar {
+    font-size: 1rem;
+  }
+  
+  .input-comment {
+    width: 249px;
+    min-height: 50px;
+  }
+
+
+
+  .comentarios p {
+    font-size: 15px;
+  }
+  
+  .loading-message {
+    font-size: 1.2rem;
+  }
+  
+}

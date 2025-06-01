@@ -3,6 +3,7 @@ import defaultAvatar from '../../assets/native_imgs/default-avatar.webp';
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 
+
 const Feed = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
@@ -114,10 +115,8 @@ const Feed = () => {
 
   return (
     <div className="feed-container">
-      <button className="btn-nova-publicacao" onClick={() => navigate('/publication')}>
-        Nova Publicação
-      </button>
-      <h1 className="titulo-feed">Feed da Luta</h1>
+
+ 
       {loading ? (
         <div className="loading-message">Carregando posts...</div>
       ) : (
@@ -157,17 +156,19 @@ const Feed = () => {
                         if (!comentarios[post.id]) fetchComentarios(post.id);
                       }}
                     >
-                      {showComentarios[post.id] ? 'Ocultar Comentários' : '💬 Exibir Comentários'}
+                      {showComentarios[post.id] ? '💬 Ocultar Comentários' : '💬 Exibir Comentários'}
                     </button>
                   </div>
                   {showComentarios[post.id] && (
                     <div className="comentarios">
                       <div className="comentario-form">
                         <textarea
+                          className='input-comment'
                           placeholder="Escreva um comentário..."
                           id={`comment-${post.id}`}
                         />
                         <button
+                          className='btn-enviar'
                           onClick={() => {
                             const commentText = document.getElementById(`comment-${post.id}`).value;
                             if (commentText) {
