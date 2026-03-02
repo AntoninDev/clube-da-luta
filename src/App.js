@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/login/login";
 import Cadastro from "./pages/cadastro/cadastro";
-import Feed from "./pages/feed/feed"
 import Publication from "./pages/feed/publication";
 import Perfil from "./pages/profile/profile";
 import EditarPerfil from "./pages/profile/editar";
@@ -9,7 +8,6 @@ import Deslogar from "./pages/logout/logout";
 import AdminHome from "./pages/admin/admin";
 import AdminLogs from "./pages/admin/verLogs";
 import AdminUsers from "./pages/admin/usersInfo";
-import VideosLutas from "./pages/videos-lutas/main";
 import { useEffect } from 'react';
 
 function App() {
