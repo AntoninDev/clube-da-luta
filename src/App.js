@@ -40,13 +40,11 @@ function App() {
         <Route path="/home-page" element={<Perfil />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/feed" element={<Feed />} />
         <Route path="/publication" element={<Publication />} />
         <Route path="/profile" element={<Perfil />} />
         <Route path="/editar-perfil" element={<EditarPerfil />} />
         <Route path="/logout" element={<Deslogar />} />
         <Route path="/admin" element={<AdminHome />} />
-        <Route path="/videos-lutas" element={<VideosLutas />} />
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/admin/logs" element={<AdminLogs />} />
         <Route path="/admin/users" element={<AdminUsers />} />
